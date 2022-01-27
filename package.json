@@ -1,0 +1,11 @@
+{
+  "name": "rxjs-learning",
+  "version": "1.0.0",
+  "description": "Demo project to try out rxjs capabilities",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {},
+  "dependencies": {
+    "rxjs": "^7.5.2"
+  }
+}

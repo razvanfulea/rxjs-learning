@@ -37,10 +37,30 @@ function unsubscribeFromObservable() {
 	setTimeout(() => subscription.unsubscribe(), 6000);
 }
 
+function observerAsArgument() {
+	const observable = new Observable(subscriber => {
+		subscriber.next(1);
+		subscriber.next(2);
+		// subscriber.error('something bad happened');
+		subscriber.next(3);
+		setTimeout(() => {
+			subscriber.next(4);
+			subscriber.complete();
+		}, 1000);
+	});
+	const observer = {
+		next: x => console.log(`Got a new value ${x}`),
+		error: err => console.log(`Error: ${err}`),
+		complete: () => console.log('Done!')
+	};
+	observable.subscribe(observer);
+}
+
 const main = () => {
 	// first();
 	// emitEverySecond();
 	// unsubscribeFromObservable();
+	// observerAsArgument();
 }
 
 main();

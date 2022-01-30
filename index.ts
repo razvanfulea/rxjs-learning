@@ -1,4 +1,5 @@
-import { Observable } from 'rxjs';
+import { concatMap, Observable } from 'rxjs';
+import { of, interval, filter, take } from 'rxjs';
 
 function first() {
 	const observable = new Observable(subscriber => {
@@ -56,11 +57,41 @@ function observerAsArgument() {
 	observable.subscribe(observer);
 }
 
+function filterOperators() {
+	const observable: Observable<number> = interval(1000);
+	observable.pipe(
+		filter(x => x % 2 == 0),
+		take(3)
+	).subscribe(x => console.log(x));
+	console.log('------------------------');
+	observable.pipe(
+		take(3),
+		filter(x => x % 2 == 0)
+	).subscribe(x => console.log(x));
+}
+
+function chainObservables() {
+	const observable: Observable<number> = of(1,2,3);
+	const observableGetUserIdByVal = (val: number) => new Observable(subscriber => {
+		subscriber.next(val * val);
+	});
+	const observableGetUserById = (val: any) => new Observable(subscriber => {
+		subscriber.next(`user${val}`)
+	});
+
+	observable.pipe(
+		concatMap(x => observableGetUserIdByVal(x)),
+		concatMap(id => observableGetUserById(id))
+	).subscribe(user => console.log(user));
+}
+
 const main = () => {
 	// first();
 	// emitEverySecond();
 	// unsubscribeFromObservable();
 	// observerAsArgument();
+	// filterOperators();
+	// chainObservables();
 }
 
 main();

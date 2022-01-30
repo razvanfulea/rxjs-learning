@@ -2,10 +2,10 @@
   "name": "rxjs-learning",
   "version": "1.0.0",
   "description": "Demo project to try out rxjs capabilities",
-  "main": "index.js",
-  "type": "module",
+  "main": "index.ts",
   "scripts": {},
   "dependencies": {
-    "rxjs": "^7.5.2"
+    "rxjs": "^7.5.2",
+    "typescript": "^4.5.5"
   }
 }
